@@ -1,0 +1,147 @@
+@import url(assets/fonts/gambarino.css);
+/**********
+Variabls
+**********/
+:root {
+  /* Colors */
+  --dusty-olive: #73877b;
+  --muted-teal: #839788;
+  --silver: #bdbbb6;
+  --soft-blush: #e5d1d0;
+  --powder-petal: #f5e4d7;
+
+  /*Typography*/
+  --main-font: "Gambarino", sans-serif;
+  --font-size-base: 1rem; /*16px*/
+  --line-height-base: 1.6;
+  --letter-spacing-base: 0.03em;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+
+  --max-content-width: 1440px;
+}
+/**********
+Typography
+**********/
+* {
+  font-family: var(--main-font);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+h1 {
+  font-size: 2.37rem;
+  font-weight: 700;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+h2 {
+  font-size: 1.78rem;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+h3 {
+  font-size: 1.54rem;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+.display-lg {
+  font-size: 3.16rem;
+  font-weight: 800; /* maybe changing - must see on liveServer*/
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+.display-md {
+  font-size: 2.73rem;
+  font-weight: 800; /* maybe changing - must see on liveServer*/
+  line-height: 1.55;
+  letter-spacing: 0.015em;
+}
+.body-sm {
+  font-size: 0.93rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0.03em;
+}
+.caption {
+  font-size: 0.81rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0.03em;
+}
+.caption-sm {
+  font-size: 0.75rem;
+  font-weight: 300;
+  line-height: 1.65;
+  letter-spacing: 0.03em;
+}
+/**********
+Universal Styles
+**********/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/**********
+Index
+**********/
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;
+  min-height: 100vh;
+}
+header {
+  background: var(--silver);
+  height: 8rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  nav {
+    display: flex;
+    justify-content: center;
+    width: var(--max-content-width);
+  }
+}
+main {
+  background: var(--soft-blush);
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer {
+  background-color: var(--silver);
+  height: 8em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  section {
+    width: var(--max-content-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.footer-logo {
+  background: url(./assets/img/logo.png);
+  object-fit: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 84px;
+  height: 84px;
+}
