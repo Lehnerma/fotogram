@@ -1,0 +1,23 @@
+const allPictures = [
+  "./assets/img/photobook/ivi-bach.jpeg",
+  "./assets/img/photobook/ivi-night.jpeg",
+  "./assets/img/photobook/ivi-posing.jpeg",
+  "./assets/img/photobook/ivi-welpe-bw.jpeg",
+  "./assets/img/photobook/max-aktuel.jpeg",
+  "./assets/img/photobook/max-ivi-running.jpeg",
+  "./assets/img/photobook/max-steinturm.jpeg",
+  "./assets/img/photobook/ivi-down.jpeg",
+  "./assets/img/photobook/ivi-parkbank.jpeg",
+  "./assets/img/photobook/ivi-seitlich-port.jpeg",
+  "./assets/img/photobook/ivi-welpe-decke.jpeg",
+  "./assets/img/photobook/max-harrypotter.jpeg",
+  "./assets/img/photobook/max-ivi.jpeg",
+  "./assets/img/photobook/ivi-grass.jpeg",
+  "./assets/img/photobook/ivi-port.jpeg",
+  "./assets/img/photobook/ivi-tinka.jpeg",
+  "./assets/img/photobook/ivi-welpe.jpeg",
+  "./assets/img/photobook/max-ivi-port.jpeg",
+  "./assets/img/photobook/max-simon-wings.jpeg",
+  "./assets/img/photobook/max-running",
+  "./assets/img/photobook/max-rennrad"
+];
