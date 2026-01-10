@@ -39,12 +39,14 @@ h1 {
   font-weight: 700;
   line-height: 1.55;
   letter-spacing: 0.02em;
+  color: var(--muted-teal);
 }
 h2 {
   font-size: 1.78rem;
   font-weight: 600;
   line-height: 1.55;
   letter-spacing: 0.02em;
+  color: var(--muted-teal);
 }
 h3 {
   font-size: 1.54rem;
@@ -56,7 +58,7 @@ h3 {
   font-size: 3.16rem;
   font-weight: 800; /* maybe changing - must see on liveServer*/
   line-height: 1.5;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.11em;
 }
 .display-md {
   font-size: 2.73rem;
@@ -100,17 +102,39 @@ body {
   margin: auto 0;
   min-height: 100vh;
 }
+/* Header */
 header {
   background: var(--silver);
-  height: 8rem;
+  /* height: 8rem; */
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 
   nav {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     width: var(--max-content-width);
+    padding: var(--spacing-md);
+
+    section {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: space-evenly;
+      li {
+        a {
+          text-decoration: none;
+          color: var(--powder-petal);
+        }
+      }
+    }
   }
 }
 main {
@@ -121,6 +145,10 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .hero-container {
+    text-align: center;
+  }
 }
 
 footer {
@@ -135,6 +163,16 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--spacing-sm);
+
+    figure {
+      display: flex;
+      align-items: center;
+
+      figcaption {
+        text-align: center;
+      }
+    }
   }
 }
 .footer-logo {
@@ -144,4 +182,20 @@ footer {
   background-repeat: no-repeat;
   width: 84px;
   height: 84px;
+}
+
+button {
+  background: none;
+  border: none;
+  transition: scale 2s;
+  :hover {
+    scale: 1.5;
+  }
+}
+/**********
+Photo Gallery
+**********/
+.photo-short {
+  width: 150px;
+  border-radius: 16px;
 }

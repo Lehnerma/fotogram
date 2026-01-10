@@ -9,18 +9,53 @@
   <body>
     <header>
       <nav>
-        
+        <section class="logo-head">
+          <img src="./assets/img/logo.png" alt="logo polaroid camera" />
+          <h3>Fotogram</h3>
+        </section>
+        <ul>
+          <li><a href="">All photos</a></li>
+          <li><a href="">Favorite</a></li>
+          <li><a href="">Dog</a></li>
+        </ul>
       </nav>
     </header>
     <main>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos sequi dolorem, tempora aliquam placeat cum asperiores cupiditate. Temporibus labore id ullam, voluptates quas sit quam ex vitae, iusto, dolor ratione!</p>
-    </main>
+      <section class="hero-container">
+        <h1 class="display-lg">My personal album</h1>
+        <h2>Ivi and me</h2>
+        <button onclick="rederPhoto()">show</button>
+      </section>
+      <article class="photo-gallery" id="photo_gallery">
+        <section class="photo">
+          <figure>
+            <img src="./assets/img/photobook/ivi-posing.jpeg" alt="Ivi und Tinka" class="photo-short" onclick="openDialog()" />
+            <figcaption></figcaption>
+          </figure>
 
+          <dialog id="dialog_photo">
+            <header>
+              <button><img src="./assets/img/heart.png" id="favicon" alt="like" /></button>
+              <h3>Title</h3>
+              <button onclick="closeDialog()"><img src="./assets/img/close-x-lg.svg" alt="" /></button>
+            </header>
+            <main>
+              <img src="" alt="" />
+            </main>
+            <footer>
+              <button><img src="./assets/img/chevron-left.svg" alt="" /></button>
+              <p>1/12</p>
+              <button><img src="./assets/img/chevron-right.svg" alt="" /></button>
+            </footer>
+          </dialog>
+        </section>
+      </article>
+    </main>
     <footer>
       <section>
         <figure>
-          <img src="/assets/img/logo.png" alt="logo polaroid camera">
-          <figcaption class="caption">Lehner Max 2026</figcaption>
+          <img src="/assets/img/logo.png" alt="logo polaroid camera" />
+          <figcaption class="caption">Lehner Max <br />2026</figcaption>
         </figure>
       </section>
     </footer>
