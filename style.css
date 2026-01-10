@@ -105,7 +105,6 @@ body {
 /* Header */
 header {
   background: var(--silver);
-  /* height: 8rem; */
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -132,6 +131,11 @@ header {
         a {
           text-decoration: none;
           color: var(--powder-petal);
+          
+          &:hover{
+            color: var(--dusty-olive);
+            text-shadow: 0 0 10px(var(--powder-petal));
+          }
         }
       }
     }
