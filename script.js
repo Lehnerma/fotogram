@@ -18,8 +18,8 @@ const allPictures = [
   { id: 1, favorite: false, name: "So klein war ich mal", link: "./assets/img/photobook/ivi-welpe.jpeg", alt: "ivi als welpe" },
   { id: 1, favorite: false, name: "Ich bin froh das ich dich habe", link: "./assets/img/photobook/max-ivi-port.jpeg", alt: "ivi und ich als porträt" },
   { id: 1, favorite: false, name: "Running Buddys", link: "./assets/img/photobook/max-simon-wings.jpeg", alt: "simon und ich beim wings4life run" },
-  { id: 1, favorite: false, name: "Lafurunde im Sommer", link: "./assets/img/photobook/max-running", alt: "ich bei einer laufeinheit" },
-  { id: 1, favorite: false, name: "Die Jacke hat mir nur eine halbe Niere gekostet 😂", link: "./assets/img/photobook/max-rennrad", alt: "selfi beim rennradfahren" },
+  { id: 1, favorite: false, name: "Lafurunde im Sommer", link: "./assets/img/photobook/max-running.jpeg", alt: "ich bei einer laufeinheit" },
+  { id: 1, favorite: false, name: "Die Jacke hat mir nur eine halbe Niere gekostet 😂", link: "./assets/img/photobook/max-rennrad.jpeg", alt: "selfi beim rennradfahren" },
 ];
 let photoDialogRef = document.getElementById("dialog_photo");
 let photoGallery = document.getElementById("photo_gallery");
@@ -28,21 +28,37 @@ function init() {
   renderPhotos();
 }
 
-function renderPhotos() {
-  photoGallery.innerHTML += photoTemplet();
-}
-
-function photoTemplet() {
-  return `<section class="photo">
-        <figure>
-            <img src="###" alt="Ivi und Tinka" class="photo-short" onclick="openDialog(####)" />
-            <figcaption></figcaption>
-        </figure>
-    </section>`;
-}
-
-function dialogTemplet(){
+function renderPhotos(photos = allPictures) {
+  photoGallery.innerHTML = '';
+  for (let index = 0; index < photos.length; index++) {
+    console.log(index);
+    photoGallery.innerHTML += photoTemplet(photos, index);
+  }
   
+}
+
+function photoTemplet(photos, index) {
+  return `<figure class="photo">
+            <img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short" onclick="openDialog(dialogPara)" />
+          </figure>`;
+}
+
+function dialogTemplet() {
+  return `<dialog id="dialog_photo">
+    <header>
+      <button><img src="./assets/img/heart.png" id="favicon" alt="like" /></button>
+      <h3>Title</h3>
+      <button onclick="closeDialog()"><img src="./assets/img/close-x-lg.svg" alt="" /></button>
+    </header>
+    <main>
+      <img src="" alt="" />
+    </main>
+    <footer>          
+      <button><img src="./assets/img/chevron-left.svg" alt="" /></button>
+      <p>1/12</p>
+      <button><img src="./assets/img/chevron-right.svg" alt="" /></button>
+    </footer>
+  </dialog>`;
 }
 function openDialog(parameter) {
   photoDialogRef.showModal();
@@ -50,3 +66,4 @@ function openDialog(parameter) {
 function closeDialog() {
   photoDialogRef.close();
 }
+

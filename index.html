@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <title>Fotogram</title>
   </head>
-  <body>
+  <body onload="init()">
     <header>
       <nav>
         <section class="logo-head">
@@ -15,7 +15,7 @@
           <h3>Fotogram</h3>
         </section>
         <ul>
-          <li><a href="">All photos</a></li>
+          <li><a  ">All photos</a></li>
           <li><a href="">Favorite</a></li>
           <li><a href="">Dog</a></li>
         </ul>
@@ -26,15 +26,10 @@
         <h1 class="display-lg">My personal album</h1>
         <h2>Ivi and me</h2>
       </section>
-      <article class="photo-gallery" id="photo_gallery">
-        <section class="photo">
-          <!-- <figure>
-            <img src="./assets/img/photobook/ivi-posing.jpeg" alt="Ivi und Tinka" class="photo-short" onclick="openDialog()" />
-            <figcaption></figcaption>
-          </figure> -->
-        </section>
+      <article class="scroll-container" id="photo_gallery">
+
       </article>
-      <dialog id="dialog_photo">
+      <!-- <dialog id="dialog_photo">
         <header>
           <button><img src="./assets/img/heart.png" id="favicon" alt="like" /></button>
           <h3>Title</h3>
@@ -48,7 +43,7 @@
           <p>1/12</p>
           <button><img src="./assets/img/chevron-right.svg" alt="" /></button>
         </footer>
-      </dialog>
+      </dialog> -->
     </main>
     <footer>
       <section>

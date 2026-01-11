@@ -154,6 +154,31 @@ main {
     text-align: center;
   }
 }
+/* Foto Gallery */
+.scroll-container{
+  width: var(--max-content-width);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: var(--spacing-xl);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--muted-teal);
+  scrollbar-width: thin;
+
+}
+
+.photo-short {
+  width: 150px;
+  border-radius: 16px;
+  transition: scale 200ms ease-in-out;
+
+  &:hover{
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
 /*Footer*/
 footer {
   background-color: var(--silver);
@@ -200,13 +225,4 @@ button {
 /**********
 Photo Gallery
 **********/
-.photo-short {
-  width: 150px;
-  border-radius: 16px;
-  transition: scale 200ms ease-in-out;
 
-  &:hover{
-    cursor: pointer;
-    scale: 1.1;
-  }
-}
