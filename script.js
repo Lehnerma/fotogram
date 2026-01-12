@@ -29,8 +29,6 @@ function init() {
   renderPhotos();
 }
 
-
-
 function renderPhotos(photos = allPhotos) {
   photoGallery.innerHTML = "";
   for (let index = 0; index < photos.length; index++) {
@@ -38,9 +36,8 @@ function renderPhotos(photos = allPhotos) {
   }
 }
 
-
 function photoTemplet(photos, index) {
-  return `<img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short" onclick="initDialog(${photos[index].id})"/>`;
+  return `<img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short fadeUp" onclick="initDialog(${photos[index].id})"/>`;
 }
 
 //####### creating dialog section #######
@@ -61,8 +58,8 @@ function renderDialog(photoId) {
 function dialogTemplet(photo) {
   return `<dialog id="fullPhoto" class="photo-dialog">
     <header>
-      <button><img src="./assets/img/heart.png" id="" alt="like" /></button>
-      <h3>Title</h3>
+      <button class="like-dialog"></button>
+      <h4 class="body-sm">${photo.name}</h4>
       <button onclick="closeDialog()"><img src="./assets/img/close-x-lg.svg" alt="" /></button>
     </header>
     <main>
@@ -70,14 +67,11 @@ function dialogTemplet(photo) {
     </main>
     <footer>          
       <button><img src="./assets/img/chevron-left.svg" alt="" /></button>
-      <p>${photo.id}/${allPhotos.length}</p>
+      <h4 class="body-sm">${photo.id}/${allPhotos.length}</h4>
       <button><img src="./assets/img/chevron-right.svg" alt="" /></button>
     </footer>
   </dialog>`;
 }
-
-
-
 
 function openDialog() {
   let dialogRef = document.getElementById('fullPhoto');
