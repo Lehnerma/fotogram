@@ -20,10 +20,8 @@ const allPhotos = [
   { id: 19, favorite: false, name: "Running Buddys", link: "./assets/img/photobook/max-simon-wings.jpeg", alt: "simon und ich beim wings4life run" },
   { id: 20, favorite: false, name: "Die Jacke hat mir nur eine halbe Niere gekostet 😂", link: "./assets/img/photobook/max-rennrad.jpeg", alt: "selfi beim rennradfahren" },
 ];
-
 let photoDialog = document.getElementById("photo_dialog");
 let photoGallery = document.getElementById("photo_gallery");
-
 
 function init() {
   renderPhotos();
@@ -37,14 +35,15 @@ function renderPhotos(photos = allPhotos) {
 }
 
 function photoTemplet(photos, index) {
-  return `<img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short fadeUp" onclick="initDialog(${photos[index].id})"/>`;
+  return `<img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short fadeUp" onclick="initDialog(${photos[index].id})"/>`;
 }
 
 //####### creating dialog section #######
 
 function initDialog(photoId) {
   renderDialog(photoId);
-  openDialog();
+  openDialog()
+
 }
 
 function renderDialog(photoId) {
@@ -58,17 +57,17 @@ function renderDialog(photoId) {
 function dialogTemplet(photo) {
   return `<dialog id="fullPhoto" class="photo-dialog">
     <header>
-      <button class="like-dialog"></button>
+      <button><img src="./assets/img/icons/star.svg" alt="stern" /></button>
       <h4 class="body-sm">${photo.name}</h4>
-      <button onclick="closeDialog()"><img src="./assets/img/close-x-lg.svg" alt="" /></button>
+      <button><img src="./assets/img/icons/close.svg" alt="x" onclick="closeDialog()"/></button>
     </header>
     <main>
       <img src="${photo.link}" alt="${photo.alt}" />
     </main>
     <footer>          
-      <button><img src="./assets/img/chevron-left.svg" alt="" /></button>
+      <button><img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
       <h4 class="body-sm">${photo.id}/${allPhotos.length}</h4>
-      <button><img src="./assets/img/chevron-right.svg" alt="" /></button>
+      <button><img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts" /></button>
     </footer>
   </dialog>`;
 }
