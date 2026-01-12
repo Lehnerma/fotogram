@@ -131,10 +131,10 @@ header {
         a {
           text-decoration: none;
           color: var(--powder-petal);
-          
-          &:hover{
+
+          &:hover {
             color: var(--dusty-olive);
-            text-shadow: 0 0 10px(var(--powder-petal));
+            text-shadow: 0 0 10px (var(--powder-petal));
           }
         }
       }
@@ -155,30 +155,71 @@ main {
   }
 }
 /* Foto Gallery */
-.scroll-container{
+.photo-gallery {
   width: var(--max-content-width);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: var(--spacing-xl);
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1rem;
+  justify-items: center;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-color: var(--muted-teal);
-  scrollbar-width: thin;
+  grid-template-rows: auto auto;
+  padding: var(--spacing-lg);
 
-}
-
-.photo-short {
-  width: 150px;
-  border-radius: 16px;
-  transition: scale 200ms ease-in-out;
-
-  &:hover{
-    cursor: pointer;
-    scale: 1.1;
+  .photo-short {
+    width: auto;
+    max-width: 250px;
+    height: 180px;
+    border-radius: 8px;
+    object-fit: cover;
+    animation: all 200ms ease-in-out;
+  
+    &:hover{
+      transform: scale(1.02);
+      box-shadow: 0px 0px 12px 0px var(--muted-teal);
+    }
   }
 }
+
+
+
+/* Dialog */
+.photo-dialog{
+  border: none;
+  margin: auto;
+
+  dialog{
+    width: 600px;
+    padding: var(--spacing-base);
+    border-radius: 1em;
+    header{
+      background: var(--dusty-olive);
+    }
+
+    main{
+      background: var(--dusty-olive);
+
+      img{
+        max-height: 70vh;
+      }
+    }
+
+    footer{
+      background: var(--dusty-olive);
+    }
+  }
+
+  &::backdrop{
+    opacity: 0;
+    background: var(--dusty-olive);
+  }
+  &[open]::backdrop{
+    opacity: 0.8;
+    background: var(--dusty-olive);
+  }
+
+}
+
 /*Footer*/
 footer {
   background-color: var(--silver);
@@ -221,8 +262,3 @@ button {
     scale: 1.5;
   }
 }
-
-/**********
-Photo Gallery
-**********/
-
