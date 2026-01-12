@@ -23,6 +23,7 @@ const allPhotos = [
 let photoDialog = document.getElementById("photo_dialog");
 let photoGallery = document.getElementById("photo_gallery");
 
+
 function init() {
   renderPhotos();
 }
@@ -67,17 +68,32 @@ function dialogTemplet(photo) {
     <footer>          
       <button><img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
       <h4 class="body-sm">${photo.id}/${allPhotos.length}</h4>
-      <button><img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts" /></button>
+      <button><img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts" onclick="test()"/></button>
     </footer>
   </dialog>`;
 }
 
 function openDialog() {
-  let dialogRef = document.getElementById('fullPhoto');
+  let dialogRef = document.getElementById("fullPhoto");
    dialogRef.showModal();
 }
 
 function closeDialog() {
-  let dialogRef = document.getElementById('fullPhoto');
+  let dialogRef = document.getElementById("fullPhoto");
   dialogRef.close();
+}
+
+photoDialog.addEventListener('click', (event) => {
+  let dialogRef = document.getElementById("fullPhoto");
+  if (event.target == dialogRef) {
+    closeDialog()
+  }
+  console.log(event.target);
+})
+
+
+
+function test() {
+  console.log('test');
+  
 }
