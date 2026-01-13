@@ -1,4 +1,4 @@
-const allPhotos = [
+let ALL_PHOTOS = [
   { id: 1, favorite: true, name: "So klein war ich mal", link: "./assets/img/photobook/ivi-welpe.jpeg", alt: "ivi als welpe" },
   { id: 2, favorite: true, name: "Welpe Schwarz Weiß", link: "./assets/img/photobook/ivi-welpe-bw.jpeg", alt: "ivi als welpe" },
   { id: 3, favorite: false, name: "Nachtausflug", link: "./assets/img/photobook/ivi-night.jpeg", alt: "ivi sitzend nach dem laufen" },
@@ -20,101 +20,115 @@ const allPhotos = [
   { id: 19, favorite: true, name: "Running Buddys", link: "./assets/img/photobook/max-simon-wings.jpeg", alt: "simon und ich beim wings4life run" },
   { id: 20, favorite: false, name: "Die Jacke hat mir nur eine halbe Niere gekostet 😂", link: "./assets/img/photobook/max-rennrad.jpeg", alt: "selfi beim rennradfahren" },
 ];
-let photoDialog = document.getElementById("photo_dialog");
-let photoGallery = document.getElementById("photo_gallery");
-
+let PHOTO_DIALOG = document.getElementById("photo_dialog");
+let PHOTO_GALLERY = document.getElementById("photo_gallery");
 
 function init() {
-  renderPhotos();
+  renderPhotos(ALL_PHOTOS);
 }
-
-function renderPhotos(photos = allPhotos) {
-  photoGallery.innerHTML = "";
+//Gallery
+function renderPhotos(photos) {
+  PHOTO_GALLERY.innerHTML = "";
   for (let index = 0; index < photos.length; index++) {
-    photoGallery.innerHTML += photoTemplet(photos, index);
+    PHOTO_GALLERY.innerHTML += photoTemplet(photos, index);
   }
+  
 }
 
 function photoTemplet(photos, index) {
   return `<section>
-  <div class="${checkFav(photos[index].favorite)}" id="fav_icon" aria-label="Stern Icon zum hervorheben der favorisierten Bilder"></div>
-  <img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short" id="photo_small" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto" tabindex="0"/>
+  <div class="fav-icon ${setFavGallery(photos[index].favorite)}" id="fav_icon" aria-label="Stern Icon zum hervorheben der favorisierten Bilder"></div>
+  <img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short" id="photo_small" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto" tabindex="0"/>
   </section>`;
 }
 
-function initDialog(photoId) {
-  renderDialog(photoId);
-  openDialog()
+function setFavGallery(bool) {
+  if (bool){
+    return 'fav-unfill';
+  }
 }
 
-function renderDialog(photoId) {
-  for (let index = 0; index < allPhotos.length; index++) {
-    if (photoId == allPhotos[index].id) {
-      photoDialog.innerHTML = dialogTemplet(index);
+// Dialog
+function initDialog(photoId, photos = ALL_PHOTOS) {
+  renderDialog(photoId, photos);
+  openDialog();
+}
+
+function renderDialog(photoID, photos) {
+  for (let index = 0; index < photos.length; index++) {
+    if (photoID == photos[index].id) {
+      PHOTO_DIALOG.innerHTML = dialogTemplet(index, photos);
+      setFavDialog(photos[index].favorite)
     }
   }
 }
 
-function dialogTemplet(index) {
+function dialogTemplet(index, photos) {
   return `<dialog id="fullPhoto" class="photo-dialog" aria-labelledby="photo_title">
     <header>
-      <button><div class="fav-icon-fill" id="fav_icon_dialog" aria-label="Stern-icon zum favorisieren"></div></button>
-      <h4 class="body-sm" id="photo_title">${allPhotos[index].name}</h4>
+      <button onclick="toggleFav(${index})">
+        <div class="fav-icon" id="fav_icon_dialog" aria-label="Stern-Icon zum favorisieren"></div>
+      </button>
+      <h4 class="body-sm" id="photo_title">${photos[index].name}</h4>
       <button aria-label="schließen"><img src="./assets/img/icons/close.svg" alt="x" id="closeDialogX"/></button>
     </header>
     <main>
-      <img src="${allPhotos[index].link}" alt="${allPhotos[index].alt}" />
+      <img src="${photos[index].link}" alt="${photos[index].alt}" />
     </main>
     <footer>          
-      <button aria-label="Foto nach links" id="goLeft" onclick="goLeft(${allPhotos[index].id})">
+      <button aria-label="Foto nach links" id="goLeft" onclick="navigationDialog(${photos[index].id}, '-')">
       <img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
-      <h4 class="body-sm">${allPhotos[index].id}/${allPhotos.length}</h4>
-      <button aria-label="Foto nach rechts" id="goRight" onclick="goRight(${allPhotos[index].id})">
+      <h4 class="body-sm">${photos[index].id}/${photos.length}</h4>
+      <button aria-label="Foto nach rechts" id="goRight" onclick="navigationDialog(${photos[index].id}, '+')">
       <img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts"/></button>
     </footer>
   </dialog>`;
 }
 
-function goRight(index) {
-  index++
-  if (index > allPhotos.length) {
-    index = 1;
-  }
-  initDialog(index);
-}
-
-function goLeft(index) {
-  index--;
-  if (index < 1) {
-    index = allPhotos.length
-  }
-  initDialog(index);
-}
-
 function openDialog() {
-  let dialogRef = document.getElementById("fullPhoto");
-   dialogRef.showModal();
+  let DIALOG_REF = document.getElementById("fullPhoto");
+  DIALOG_REF.showModal();
 }
 
-// eventlistener to close the dialog
-photoDialog.addEventListener('click', (event) => {
+function navigationDialog(index, direction) {
+  if (direction == "+") {
+    index++;
+    if (index > ALL_PHOTOS.length) {
+      index = 1;
+    }
+  } else if (direction == "-") {
+    index--;
+    if (index < 1) {
+      index = ALL_PHOTOS.length;
+    }
+  }
+  initDialog(index);
+}
+
+PHOTO_DIALOG.addEventListener("click", (event) => {
   let dialogRef = document.getElementById("fullPhoto");
-  let closeX = document.getElementById('closeDialogX');
+  let closeX = document.getElementById("closeDialogX");
   if (event.target == dialogRef || event.target == closeX) {
-    dialogRef.close()
+    dialogRef.close();
+    renderPhotos(ALL_PHOTOS)
   }
   console.log(event.target);
-})
+});
 
-function checkFav(favoriteID) {
-  if (favoriteID){
-    return "fav-icon"
+function setFavDialog(photoID) {
+  let ref = document.getElementById("fav_icon_dialog");
+  if (photoID) {
+    ref.classList.add("fav-fill");
+    ref.classList.remove("fav-unfill");
+  } else {
+    ref.classList.add("fav-unfill");
+    ref.classList.remove("fav-fill");
   }
 }
 
-function toggleFav(fav) {
-  let favRef = document.getElementById('fav_icon')
-  if (fav) {
-    favRef.classList.remove('fav-icon')
-  } 
+function toggleFav(index) {
+    ALL_PHOTOS[index].favorite = !ALL_PHOTOS[index].favorite;
+    console.log(index); 
+    setFavDialog(ALL_PHOTOS[index].favorite)
 }
+

@@ -92,16 +92,19 @@ Universal Styles
   margin: 0;
   padding: 0;
 }
-.fav-icon, .fav-icon-fill{
+.fav-unfill{
+  background: url(./assets/img/icons/star.svg);
+}
+.fav-fill{
+  background: url(./assets/img/icons/star_filled.svg);       
+}
+.fav-icon{
   width: 40px;
   height: 40px;
-  background: url(./assets/img/icons/star.svg);
   background-repeat: no-repeat;
   background-position: center;
 }
-.fav-icon-fill{
-  background: url(./assets/img/icons/star_filled.svg);       
-}
+
 /**********
 Index
 **********/
