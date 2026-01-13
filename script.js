@@ -22,7 +22,7 @@ let ALL_PHOTOS = [
 ];
 let PHOTO_DIALOG = document.getElementById("photo_dialog");
 let PHOTO_GALLERY = document.getElementById("photo_gallery");
-
+let DIALOG_ID = 0;
 function init() {
   renderPhotos(ALL_PHOTOS);
 }
@@ -32,7 +32,6 @@ function renderPhotos(photos) {
   for (let index = 0; index < photos.length; index++) {
     PHOTO_GALLERY.innerHTML += photoTemplet(photos, index);
   }
-  
 }
 
 function photoTemplet(photos, index) {
@@ -43,8 +42,8 @@ function photoTemplet(photos, index) {
 }
 
 function setFavGallery(bool) {
-  if (bool){
-    return 'fav-unfill';
+  if (bool) {
+    return "fav-unfill";
   }
 }
 
@@ -58,13 +57,14 @@ function renderDialog(photoID, photos) {
   for (let index = 0; index < photos.length; index++) {
     if (photoID == photos[index].id) {
       PHOTO_DIALOG.innerHTML = dialogTemplet(index, photos);
-      setFavDialog(photos[index].favorite)
+      setFavDialog(photos[index].favorite);
     }
   }
 }
 
 function dialogTemplet(index, photos) {
-  return `<dialog id="fullPhoto" class="photo-dialog" aria-labelledby="photo_title">
+  DIALOG_ID = photos[index].id;
+  return `<dialog id="fullPhoto" class="photo-dialog" aria-labelledby="photo_title" >
     <header>
       <button onclick="toggleFav(${index})">
         <div class="fav-icon" id="fav_icon_dialog" aria-label="Stern-Icon zum favorisieren"></div>
@@ -76,10 +76,10 @@ function dialogTemplet(index, photos) {
       <img src="${photos[index].link}" alt="${photos[index].alt}" />
     </main>
     <footer>          
-      <button aria-label="Foto nach links" id="goLeft" onclick="navigationDialog(${photos[index].id}, '-')">
+      <button aria-label="Foto nach links" id="goLeft" onclick="navigationDialog(${photos[index].id}, '-')" onkeydown="navigationDialog(${photos[index].id}, event">
       <img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
       <h4 class="body-sm">${photos[index].id}/${photos.length}</h4>
-      <button aria-label="Foto nach rechts" id="goRight" onclick="navigationDialog(${photos[index].id}, '+')">
+      <button aria-label="Foto nach rechts" id="goRight" onclick="navigationDialog(${photos[index].id}, '+')" >
       <img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts"/></button>
     </footer>
   </dialog>`;
@@ -96,7 +96,8 @@ function navigationDialog(index, direction) {
     if (index > ALL_PHOTOS.length) {
       index = 1;
     }
-  } else if (direction == "-") {
+  }
+  if (direction == "-") {
     index--;
     if (index < 1) {
       index = ALL_PHOTOS.length;
@@ -105,12 +106,31 @@ function navigationDialog(index, direction) {
   initDialog(index);
 }
 
+PHOTO_DIALOG.addEventListener("keydown", (event, index) => {
+  index = DIALOG_ID;
+  console.log("key: " + event.key);
+  if (event.key == "ArrowLeft") {
+    index--;
+    if (index < 1) {
+      index = ALL_PHOTOS.length;
+    }
+    initDialog(index);
+  }
+  if (event.key == "ArrowRight") {
+    index++;
+    if (index > ALL_PHOTOS.length) {
+      index = 1;
+    }
+    initDialog(index);
+  }
+});
+
 PHOTO_DIALOG.addEventListener("click", (event) => {
   let dialogRef = document.getElementById("fullPhoto");
   let closeX = document.getElementById("closeDialogX");
   if (event.target == dialogRef || event.target == closeX) {
     dialogRef.close();
-    renderPhotos(ALL_PHOTOS)
+    renderPhotos(ALL_PHOTOS);
   }
   console.log(event.target);
 });
@@ -127,8 +147,7 @@ function setFavDialog(photoID) {
 }
 
 function toggleFav(index) {
-    ALL_PHOTOS[index].favorite = !ALL_PHOTOS[index].favorite;
-    console.log(index); 
-    setFavDialog(ALL_PHOTOS[index].favorite)
+  ALL_PHOTOS[index].favorite = !ALL_PHOTOS[index].favorite;
+  console.log(index);
+  setFavDialog(ALL_PHOTOS[index].favorite);
 }
-
