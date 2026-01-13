@@ -188,10 +188,9 @@ main {
   margin: auto;
 
   dialog {
-    
+    padding: var(--spacing-sm);
     width: 75vw;
     max-height: 85vh;
-    padding: var(--spacing-sm);
     border-radius: 1em;
     background: var(--dusty-olive);
 
@@ -200,6 +199,7 @@ main {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+
     }
 
     main {
@@ -207,7 +207,7 @@ main {
 
       img {
         max-width: 70vw;
-        max-height: 75vh;
+        max-height: 70vh;
         border-radius: 1em;
         padding: var(--spacing-md);
       }

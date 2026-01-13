@@ -36,7 +36,7 @@ function renderPhotos(photos = allPhotos) {
 }
 
 function photoTemplet(photos, index) {
-  return `<img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short fadeUp" onclick="initDialog(${photos[index].id})"/>`;
+  return `<img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short fadeUp" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto"  />`;
 }
 
 //####### creating dialog section #######
@@ -56,19 +56,19 @@ function renderDialog(photoId) {
 }
 
 function dialogTemplet(photo) {
-  return `<dialog id="fullPhoto" class="photo-dialog">
+  return `<dialog id="fullPhoto" class="photo-dialog" aria-labelledby="photo_title">
     <header>
-      <button><img src="./assets/img/icons/star.svg" alt="stern" /></button>
-      <h4 class="body-sm">${photo.name}</h4>
-      <button><img src="./assets/img/icons/close.svg" alt="x" onclick="closeDialog()"/></button>
+      <button aria-label="Favorit markieren"><img src="./assets/img/icons/star.svg" alt="stern" /></button>
+      <h4 class="body-sm" id="photo_title">${photo.name}</h4>
+      <button aria-label="schließen"><img src="./assets/img/icons/close.svg" alt="x" onclick="closeDialog()"/></button>
     </header>
     <main>
       <img src="${photo.link}" alt="${photo.alt}" />
     </main>
     <footer>          
-      <button><img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
+      <button aria-label="Foto nach links"><img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
       <h4 class="body-sm">${photo.id}/${allPhotos.length}</h4>
-      <button><img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts" onclick="test()"/></button>
+      <button aria-label="Foto nach rechts"><img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts" onclick="test()"/></button>
     </footer>
   </dialog>`;
 }
