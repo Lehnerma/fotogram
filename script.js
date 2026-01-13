@@ -36,7 +36,10 @@ function renderPhotos(photos = allPhotos) {
 }
 
 function photoTemplet(photos, index) {
-  return `<img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short" id="photo_small" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto" tabindex="0"/>`;
+  return `<section>
+  <div class="fav"></div>
+  <img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short" id="photo_small" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto" tabindex="0"/>
+  </section>`;
 }
 
 function initDialog(photoId) {
@@ -55,7 +58,7 @@ function renderDialog(photoId) {
 function dialogTemplet(index) {
   return `<dialog id="fullPhoto" class="photo-dialog" aria-labelledby="photo_title">
     <header>
-      <button aria-label="Favorit markieren"><img src="./assets/img/icons/star.svg" alt="stern" /></button>
+      <button aria-label="Favorit markieren"><img src="./assets/img/icons/star.svg" alt="stern"/></button>
       <h4 class="body-sm" id="photo_title">${allPhotos[index].name}</h4>
       <button aria-label="schließen"><img src="./assets/img/icons/close.svg" alt="x" id="closeDialogX"/></button>
     </header>
@@ -102,3 +105,11 @@ photoDialog.addEventListener('click', (event) => {
   }
   console.log(event.target);
 })
+
+function toggleFav(fav) {
+
+  if (fav) {
+    
+  }
+  
+}
