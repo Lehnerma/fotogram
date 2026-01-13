@@ -47,27 +47,45 @@ function initDialog(photoId) {
 function renderDialog(photoId) {
   for (let index = 0; index < allPhotos.length; index++) {
     if (photoId == allPhotos[index].id) {
-      photoDialog.innerHTML = dialogTemplet(allPhotos[index]);
+      photoDialog.innerHTML = dialogTemplet(index);
     }
   }
 }
 
-function dialogTemplet(photo) {
+function dialogTemplet(index) {
   return `<dialog id="fullPhoto" class="photo-dialog" aria-labelledby="photo_title">
     <header>
       <button aria-label="Favorit markieren"><img src="./assets/img/icons/star.svg" alt="stern" /></button>
-      <h4 class="body-sm" id="photo_title">${photo.name}</h4>
+      <h4 class="body-sm" id="photo_title">${allPhotos[index].name}</h4>
       <button aria-label="schließen"><img src="./assets/img/icons/close.svg" alt="x" id="closeDialogX"/></button>
     </header>
     <main>
-      <img src="${photo.link}" alt="${photo.alt}" />
+      <img src="${allPhotos[index].link}" alt="${allPhotos[index].alt}" />
     </main>
     <footer>          
-      <button aria-label="Foto nach links"><img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
-      <h4 class="body-sm">${photo.id}/${allPhotos.length}</h4>
-      <button aria-label="Foto nach rechts"><img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts" onclick="test()"/></button>
+      <button aria-label="Foto nach links" id="goLeft" onclick="goLeft(${allPhotos[index].id})">
+      <img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
+      <h4 class="body-sm">${allPhotos[index].id}/${allPhotos.length}</h4>
+      <button aria-label="Foto nach rechts" id="goRight" onclick="goRight(${allPhotos[index].id})">
+      <img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts"/></button>
     </footer>
   </dialog>`;
+}
+
+function goRight(index) {
+  index++
+  if (index > allPhotos.length) {
+    index = 1;
+  }
+  initDialog(index);
+}
+
+function goLeft(index) {
+  index--;
+  if (index < 1) {
+    index = allPhotos.length
+  }
+  initDialog(index);
 }
 
 function openDialog() {

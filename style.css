@@ -103,6 +103,9 @@ body {
   margin: auto 0;
   min-height: 100vh;
 }
+.d-none{
+  display: none;
+}
 /* Header */
 
 header {
