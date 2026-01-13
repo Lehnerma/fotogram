@@ -36,15 +36,12 @@ function renderPhotos(photos = allPhotos) {
 }
 
 function photoTemplet(photos, index) {
-  return `<img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short fadeUp" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto"  />`;
+  return `<img src="${photos[index].link}" alt="${photos[index].alt}"class="photo-short" id="photo_small" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto" tabindex="0"/>`;
 }
-
-//####### creating dialog section #######
 
 function initDialog(photoId) {
   renderDialog(photoId);
   openDialog()
-
 }
 
 function renderDialog(photoId) {
@@ -60,7 +57,7 @@ function dialogTemplet(photo) {
     <header>
       <button aria-label="Favorit markieren"><img src="./assets/img/icons/star.svg" alt="stern" /></button>
       <h4 class="body-sm" id="photo_title">${photo.name}</h4>
-      <button aria-label="schließen"><img src="./assets/img/icons/close.svg" alt="x" onclick="closeDialog()"/></button>
+      <button aria-label="schließen"><img src="./assets/img/icons/close.svg" alt="x" id="closeDialogX"/></button>
     </header>
     <main>
       <img src="${photo.link}" alt="${photo.alt}" />
@@ -78,22 +75,12 @@ function openDialog() {
    dialogRef.showModal();
 }
 
-function closeDialog() {
-  let dialogRef = document.getElementById("fullPhoto");
-  dialogRef.close();
-}
-
+// eventlistener to close the dialog
 photoDialog.addEventListener('click', (event) => {
   let dialogRef = document.getElementById("fullPhoto");
-  if (event.target == dialogRef) {
-    closeDialog()
+  let closeX = document.getElementById('closeDialogX');
+  if (event.target == dialogRef || event.target == closeX) {
+    dialogRef.close()
   }
   console.log(event.target);
 })
-
-
-
-function test() {
-  console.log('test');
-  
-}
