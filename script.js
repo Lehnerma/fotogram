@@ -1,6 +1,6 @@
 const ALL_PHOTOS = [
   { id: 1, favorite: true, name: "So klein war ich mal", link: "./assets/img/photobook/ivi-welpe.jpeg", alt: "ivi als welpe" },
-  { id: 2, favorite: true, name: "Welpe Schwarz Weiß", link: "./assets/img/photobook/ivi-welpe-bw.jpeg", alt: "ivi als welpe" },
+  { id: 2, favorite: true, name: "Welpe Schwarz Weiß", link: "./assets/img/photobook/ivi-welpe-bw.jpeg", alt: "ivi foto bearbeitet" },
   { id: 3, favorite: false, name: "Nachtausflug", link: "./assets/img/photobook/ivi-night.jpeg", alt: "ivi sitzend nach dem laufen" },
   { id: 4, favorite: false, name: "My Princess", link: "./assets/img/photobook/ivi-posing.jpeg", alt: "ivi posing in the sun" },
   { id: 5, favorite: false, name: "Aktuelles Bild von mir", link: "./assets/img/photobook/max-aktuel.jpeg", alt: "aktuelles bild von mir" },
@@ -20,27 +20,32 @@ const ALL_PHOTOS = [
   { id: 19, favorite: true, name: "Running Buddys", link: "./assets/img/photobook/max-simon-wings.jpeg", alt: "simon und ich beim wings4life run" },
   { id: 20, favorite: false, name: "Die Jacke hat mir nur eine halbe Niere gekostet 😂", link: "./assets/img/photobook/max-rennrad.jpeg", alt: "selfi beim rennradfahren" },
 ];
-let PHOTO_DIALOG = document.getElementById("photo_dialog");
 let PHOTO_GALLERY = document.getElementById("photo_gallery");
+let PHOTO_DIALOG = document.getElementById("photo_dialog");
+let DIALOG_REF = document.getElementById("fullPhoto");
 let DIALOG_ID = 0;
-
-function init() {
-  renderPhotos(ALL_PHOTOS);
-}
-
-function renderPhotos(photos) {
+let DIALOG_INDEX = 0;
+let DIALOG_TITEL = document.getElementById("dialog_title");
+let DIALOG_PHOTO = document.getElementById("dialog_photo");
+let DIALOG_PAGE_NUM = document.getElementById("dialog_pageNumber");
+let DIALOG_FAV_ICON = document.getElementById("fav_icon_dialog");
+let CLOSEX = document.getElementById("closingX");
+let CLOSINGX = document.getElementById("closeDialogX");
+let DIALOG_ARROW_RIGHT =document.getElementById("goRight");
+let DIALOG_ARROW_LEFT =document.getElementById("goLeft");
+function initGallery() {
   PHOTO_GALLERY.innerHTML = "";
-  for (let index = 0; index < photos.length; index++) {
-    PHOTO_GALLERY.innerHTML += photoTemplet(photos, index);
+  for (let index = 0; index < ALL_PHOTOS.length; index++) {
+    PHOTO_GALLERY.innerHTML += photoTemplet(index);
   }
 }
 
-function photoTemplet(photos, index) {
+function photoTemplet(index) {
   return `<section>
-    <div class="fav-icon ${setFavGallery(photos[index].favorite)}" aria-label="Stern Icon zum hervorheben der favorisierten Bilder">
+    <div class="fav-icon ${setFavGallery(ALL_PHOTOS[index].favorite)}" role="img" aria-roledescription="Stern Icon zum hervorheben der favorisierten Bilder" title="favorit stern">
     </div>
-    <button onclick="initDialog(${photos[index].id})">
-    <img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short"  aria-haspopup="dialog" aria-controls="fullPhoto"/>
+    <button onclick="initDialog(${ALL_PHOTOS[index].id})" aria-haspopup="dialog" >
+    <img src="${ALL_PHOTOS[index].link}" alt="${ALL_PHOTOS[index].alt}" class="photo-short"/>
     </button>
   </section>`;
 }
@@ -51,106 +56,79 @@ function setFavGallery(bool) {
   }
 }
 
-function initDialog(photoId, photos = ALL_PHOTOS) {
-  renderDialog(photoId, photos);
+function initDialog(photoId) {
+  renderDialog(photoId);
   openDialog();
 }
 
-function renderDialog(photoID, photos) {
-  for (let index = 0; index < photos.length; index++) {
-    if (photoID == photos[index].id) {
-      PHOTO_DIALOG.innerHTML = dialogTemplet(index, photos);
-      setFavDialog(photos[index].favorite);
+function renderDialog(photoID) {
+  for (let index = 0; index < ALL_PHOTOS.length; index++) {
+    if (photoID == ALL_PHOTOS[index].id) {
+      fillDialog(index);
+      setFavDialog(ALL_PHOTOS[index].favorite); //check this function
+      DIALOG_ID = ALL_PHOTOS[index].id;
     }
   }
 }
 
-function dialogTemplet(index, photos) {
-  DIALOG_ID = photos[index].id;
-  return `<dialog id="fullPhoto" class="photo-dialog" aria-labelledby="photo_title" >
-    <header>
-      <button onclick="toggleFav(${index})">
-        <div class="fav-icon" id="fav_icon_dialog" aria-label="Stern-Icon zum favorisieren"></div>
-      </button>
-      <h4 class="body-sm" id="photo_title">${photos[index].name}</h4>
-      <button aria-label="schließen" id="closeDialogX"/>
-        <img src="./assets/img/icons/close.svg" alt="x" id="closingX">
-      </button>
-    </header>
-    <main>
-      <img src="${photos[index].link}" alt="${photos[index].alt}" />
-    </main>
-    <footer>          
-      <button aria-label="Foto nach links" id="goLeft" onclick="navigationDialog(${photos[index].id}, '-')" onkeydown="navigationDialog(${photos[index].id}, event">
-      <img src="./assets/img/icons/arrow_left.svg" alt="pfeil links" /></button>
-      <h4 class="body-sm">${photos[index].id}/${photos.length}</h4>
-      <button aria-label="Foto nach rechts" id="goRight" onclick="navigationDialog(${photos[index].id}, '+')" >
-      <img src="./assets/img/icons/arrow_right.svg" alt="pfeil rechts"/></button>
-    </footer>
-  </dialog>`;
+function fillDialog(index) {
+  DIALOG_TITEL.innerHTML = ALL_PHOTOS[index].name;
+  DIALOG_PHOTO.src = ALL_PHOTOS[index].link;
+  DIALOG_PHOTO.alt = ALL_PHOTOS[index].alt;
+  DIALOG_PAGE_NUM.innerHTML = ALL_PHOTOS[index].id + " / " + ALL_PHOTOS.length;
 }
 
 function openDialog() {
-  let DIALOG_REF = document.getElementById("fullPhoto");
   DIALOG_REF.showModal();
 }
 
-function navigationDialog(index, direction) {
-  if (direction == "+") {
-    index++;
-    if (index > ALL_PHOTOS.length) {
-      index = 1;
-    }
+DIALOG_REF.addEventListener("click", (event) => {
+  if (event.target == DIALOG_REF || event.target == CLOSEX || event.target == CLOSINGX) {
+    DIALOG_REF.close();
+    initGallery();
   }
-  if (direction == "-") {
-    index--;
-    if (index < 1) {
-      index = ALL_PHOTOS.length;
-    }
-  }
-  initDialog(index);
-}
 
-PHOTO_DIALOG.addEventListener("keydown", (event, index) => {
-  index = DIALOG_ID;
+  if ( event.target == DIALOG_ARROW_LEFT) {
+    DIALOG_ID--;
+    if (DIALOG_ID < 1) {
+      DIALOG_ID = ALL_PHOTOS.length;
+    }
+    renderDialog(DIALOG_ID);
+  } else if (event.target == DIALOG_ARROW_RIGHT) {
+    DIALOG_ID++;
+    if (DIALOG_ID > ALL_PHOTOS.length) {
+      DIALOG_ID = 1;
+    }
+    renderDialog(DIALOG_ID);
+  }
+});
+
+DIALOG_REF.addEventListener("keydown", (event) => {
   if (event.key == "ArrowLeft") {
-    index--;
-    if (index < 1) {
-      index = ALL_PHOTOS.length;
+    DIALOG_ID--;
+    if (DIALOG_ID < 1) {
+      DIALOG_ID = ALL_PHOTOS.length;
     }
-    initDialog(index);
-  }
-  if (event.key == "ArrowRight") {
-    index++;
-    if (index > ALL_PHOTOS.length) {
-      index = 1;
+  } else if (event.key == "ArrowRight") {
+    DIALOG_ID++;
+    if (DIALOG_ID > ALL_PHOTOS.length) {
+      DIALOG_ID = 1;
     }
-    initDialog(index);
   }
+  renderDialog(DIALOG_ID);
 });
-
-PHOTO_DIALOG.addEventListener("click", (event) => {
-  let dialogRef = document.getElementById("fullPhoto");
-  let closeX = document.getElementById("closeDialogX");
-  let closingX = document.getElementById("closingX")
-  if (event.target == dialogRef || event.target == closeX || event.target == closingX) {
-    dialogRef.close();
-    renderPhotos(ALL_PHOTOS);
-  }
-});
-
-function setFavDialog(photoID) {
-  let ref = document.getElementById("fav_icon_dialog");
-  if (photoID) {
-    ref.classList.add("fav-fill");
-    ref.classList.remove("fav-unfill");
-  } else {
-    ref.classList.add("fav-unfill");
-    ref.classList.remove("fav-fill");
-  }
-}
 
 function toggleFav(index) {
   ALL_PHOTOS[index].favorite = !ALL_PHOTOS[index].favorite;
   setFavDialog(ALL_PHOTOS[index].favorite);
+}
+
+function setFavDialog(photoID) {
+  if (photoID) {
+    DIALOG_FAV_ICON.classList.add("fav-fill");
+    DIALOG_FAV_ICON.classList.remove("fav-unfill");
+  } else {
+    DIALOG_FAV_ICON.classList.add("fav-unfill");
+    DIALOG_FAV_ICON.classList.remove("fav-fill");
+  }
 }

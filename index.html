@@ -7,14 +7,13 @@
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon" />
     <title>Fotogram</title>
   </head>
-  <body onload="init()">
+  <body onload="initGallery()">
     <header>
       <nav>
         <section class="logo-head">
           <img src="./assets/img/logo.png" alt="logo polaroid camera" />
           <h3>Fotogram</h3>
         </section>
-
       </nav>
     </header>
     <main>
@@ -24,14 +23,38 @@
       </section>
       <article class="photo-container">
         <section class="photo-gallery" id="photo_gallery"></section>
-        <asside class="photo-dialog" id="photo_dialog"> </asside>
+        <asside class="photo-dialog" id="photo_dialog">
+          <!-- 
+          Dialog
+           -->
+        <dialog id="fullPhoto" class="photo-dialog" aria-labelledby="dialog_photo">
+          <header>
+              <button onclick="toggleFav()">
+                <div class="fav-icon" id="fav_icon_dialog" aria-label="Stern-Icon zum favorisieren"></div>
+              </button>
+              <h4 class="body-sm" id="dialog_title">placeholder</h4>
+              <button aria-label="schließen" id="closeDialogX">
+                <img src="./assets/img/icons/close.svg" alt="x" id="closingX" >
+              </button>
+            </header>
+            <main>
+              <img src="" alt="" id="dialog_photo"/>
+            </main>
+            <footer>          
+              <button aria-label="Foto nach links" id="goLeft" class="goLeft"></button>
+              <h4 class="body-sm" id="dialog_pageNumber">placeholder</h4>
+              <button aria-label="Foto nach rechts" id="goRight" class="goRight"></button>
+            </footer>
+            </dialog>
+
+          </asside>
       </article>
     </main>
     <footer>
       <section>
         <figure>
           <img src="/assets/img/logo.png" alt="logo polaroid camera" />
-          <figcaption class="caption">Lehner Max <br />2026</figcaption>
+          <figcaption class="body-sm"><strong>Lehner Max <br/>2026 </strong> </figcaption>
         </figure>
       </section>
     </footer>
