@@ -118,7 +118,8 @@ DIALOG_REF.addEventListener("keydown", (event) => {
   renderDialog(DIALOG_ID);
 });
 
-function toggleFav(index) {
+function toggleFav() {
+  
   ALL_PHOTOS[index].favorite = !ALL_PHOTOS[index].favorite;
   setFavDialog(ALL_PHOTOS[index].favorite);
 }
