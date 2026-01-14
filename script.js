@@ -1,4 +1,4 @@
-let ALL_PHOTOS = [
+const ALL_PHOTOS = [
   { id: 1, favorite: true, name: "So klein war ich mal", link: "./assets/img/photobook/ivi-welpe.jpeg", alt: "ivi als welpe" },
   { id: 2, favorite: true, name: "Welpe Schwarz Weiß", link: "./assets/img/photobook/ivi-welpe-bw.jpeg", alt: "ivi als welpe" },
   { id: 3, favorite: false, name: "Nachtausflug", link: "./assets/img/photobook/ivi-night.jpeg", alt: "ivi sitzend nach dem laufen" },
@@ -23,10 +23,11 @@ let ALL_PHOTOS = [
 let PHOTO_DIALOG = document.getElementById("photo_dialog");
 let PHOTO_GALLERY = document.getElementById("photo_gallery");
 let DIALOG_ID = 0;
+
 function init() {
   renderPhotos(ALL_PHOTOS);
 }
-//Gallery
+
 function renderPhotos(photos) {
   PHOTO_GALLERY.innerHTML = "";
   for (let index = 0; index < photos.length; index++) {
@@ -36,8 +37,11 @@ function renderPhotos(photos) {
 
 function photoTemplet(photos, index) {
   return `<section>
-  <div class="fav-icon ${setFavGallery(photos[index].favorite)}" id="fav_icon" aria-label="Stern Icon zum hervorheben der favorisierten Bilder"></div>
-  <img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short" id="photo_small" onclick="initDialog(${photos[index].id})" aria-haspopup="dialog" aria-controls="fullPhoto" tabindex="0"/>
+    <div class="fav-icon ${setFavGallery(photos[index].favorite)}" aria-label="Stern Icon zum hervorheben der favorisierten Bilder">
+    </div>
+    <button onclick="initDialog(${photos[index].id})">
+    <img src="${photos[index].link}" alt="${photos[index].alt}" class="photo-short"  aria-haspopup="dialog" aria-controls="fullPhoto"/>
+    </button>
   </section>`;
 }
 
@@ -47,7 +51,6 @@ function setFavGallery(bool) {
   }
 }
 
-// Dialog
 function initDialog(photoId, photos = ALL_PHOTOS) {
   renderDialog(photoId, photos);
   openDialog();
@@ -70,7 +73,9 @@ function dialogTemplet(index, photos) {
         <div class="fav-icon" id="fav_icon_dialog" aria-label="Stern-Icon zum favorisieren"></div>
       </button>
       <h4 class="body-sm" id="photo_title">${photos[index].name}</h4>
-      <button aria-label="schließen"><img src="./assets/img/icons/close.svg" alt="x" id="closeDialogX"/></button>
+      <button aria-label="schließen" id="closeDialogX"/>
+        <img src="./assets/img/icons/close.svg" alt="x" id="closingX">
+      </button>
     </header>
     <main>
       <img src="${photos[index].link}" alt="${photos[index].alt}" />
@@ -108,7 +113,6 @@ function navigationDialog(index, direction) {
 
 PHOTO_DIALOG.addEventListener("keydown", (event, index) => {
   index = DIALOG_ID;
-  console.log("key: " + event.key);
   if (event.key == "ArrowLeft") {
     index--;
     if (index < 1) {
@@ -128,11 +132,11 @@ PHOTO_DIALOG.addEventListener("keydown", (event, index) => {
 PHOTO_DIALOG.addEventListener("click", (event) => {
   let dialogRef = document.getElementById("fullPhoto");
   let closeX = document.getElementById("closeDialogX");
-  if (event.target == dialogRef || event.target == closeX) {
+  let closingX = document.getElementById("closingX")
+  if (event.target == dialogRef || event.target == closeX || event.target == closingX) {
     dialogRef.close();
     renderPhotos(ALL_PHOTOS);
   }
-  console.log(event.target);
 });
 
 function setFavDialog(photoID) {
@@ -148,6 +152,5 @@ function setFavDialog(photoID) {
 
 function toggleFav(index) {
   ALL_PHOTOS[index].favorite = !ALL_PHOTOS[index].favorite;
-  console.log(index);
   setFavDialog(ALL_PHOTOS[index].favorite);
 }
