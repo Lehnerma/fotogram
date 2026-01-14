@@ -65,7 +65,8 @@ function renderDialog(photoID) {
   for (let index = 0; index < ALL_PHOTOS.length; index++) {
     if (photoID == ALL_PHOTOS[index].id) {
       fillDialog(index);
-      setFavDialog(ALL_PHOTOS[index].favorite); //check this function
+      setFavDialog(ALL_PHOTOS[index].favorite);
+      DIALOG_INDEX = index;
       DIALOG_ID = ALL_PHOTOS[index].id;
     }
   }
@@ -118,14 +119,13 @@ DIALOG_REF.addEventListener("keydown", (event) => {
   renderDialog(DIALOG_ID);
 });
 
-function toggleFav() {
-  
+function toggleFav(index = DIALOG_INDEX) {
   ALL_PHOTOS[index].favorite = !ALL_PHOTOS[index].favorite;
   setFavDialog(ALL_PHOTOS[index].favorite);
 }
 
-function setFavDialog(photoID) {
-  if (photoID) {
+function setFavDialog(photoBOOL) {
+  if (photoBOOL) {
     DIALOG_FAV_ICON.classList.add("fav-fill");
     DIALOG_FAV_ICON.classList.remove("fav-unfill");
   } else {
